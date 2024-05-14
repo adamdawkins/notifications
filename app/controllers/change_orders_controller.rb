@@ -24,6 +24,9 @@ class ChangeOrdersController < ApplicationController
     @change_order = ChangeOrder.new(change_order_params)
 
     if @change_order.save
+      deliver_finance_notification if @change_order.amount_changed?
+      deliver_rpc_notification if @change_order.material_changed?
+      deliver_pii_notification if @change_order.work_order_changed?
       redirect_to @change_order, notice: "Change order was successfully created."
     else
       render :new, status: :unprocessable_entity
@@ -54,5 +57,21 @@ class ChangeOrdersController < ApplicationController
     # Only allow a list of trusted parameters through.
     def change_order_params
       params.require(:change_order).permit(:amount_changed, :material_changed, :work_order_changed)
+    end
+
+    def deliver_finance_notification
+      change_order_notifier("Project price has changed in change order #{@change_order.id}").deliver(User.finance)
+    end
+
+    def deliver_pii_notification
+      change_order_notifier("Change Order: New work order required for #{@change_order.id}").deliver(User.pii)
+    end
+
+    def deliver_rpc_notification
+      change_order_notifier("Change Order: New materials required for #{@change_order.id}").deliver(User.rpc)
+    end
+
+    def change_order_notifier(message)
+      ChangeOrderNotifier.with(record: @change_order, message:)
     end
 end
