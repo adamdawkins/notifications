@@ -60,15 +60,15 @@ class ChangeOrdersController < ApplicationController
     end
 
     def deliver_finance_notification
-      change_order_notifier("Project price has changed in change order #{@change_order.id}").deliver(User.finance)
+      change_order_notifier("Change Order #{@change_order.display_id} — the project price has changed").deliver(User.finance)
     end
 
     def deliver_pii_notification
-      change_order_notifier("Change Order: New work order required for #{@change_order.id}").deliver(User.pii)
+      change_order_notifier("Change Order #{@change_order.display_id} — the scope of work has changed").deliver(User.pii)
     end
 
     def deliver_rpc_notification
-      change_order_notifier("Change Order: New materials required for #{@change_order.id}").deliver(User.rpc)
+      change_order_notifier("Change Order #{@change_order.display_id} — the materials have changed").deliver(User.rpc)
     end
 
     def change_order_notifier(message)

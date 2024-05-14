@@ -1,4 +1,20 @@
-<li class="p-4 border-b">
-  <%= notification.message %>
-<%= link_to "View #{notification.event.record.class.name.underscore.humanize}", notification.event.record %>
-</li>
+<div class="flex flex-row border-b align-middle">
+  <div class="unread-indicator my-auto mr-5 ml-2"></div>
+  <%= link_to notification.event.record, class:"flex items-center flex-auto py-2" do %>
+    <div class="flex flex-col flex-auto">
+      <div class="flex">
+        <p class="m-0 text-xs flex-auto">
+          <span class="text-normal color-fg-muted">
+            <%= notification.event.record.display_id %>
+          </span>
+        </p>
+        <p class="text-xs text-gray-400">
+          <%= time_ago_in_words(notification.created_at) %> ago
+        </p>
+      </div>
+      <p class="m-0 text-normal pr-2 pr-m0 markdown-title">
+        <%= notification.message %>
+      </p>
+    </div>
+  <% end %>
+</div>
