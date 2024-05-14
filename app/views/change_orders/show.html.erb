@@ -1,10 +1,30 @@
 <p style="color: green"><%= notice %></p>
 
-<%= render @change_order %>
-
 <div>
-  <%= link_to "Edit this change order", edit_change_order_path(@change_order) %> |
-  <%= link_to "Back to change orders", change_orders_path %>
+  <div>
+    <h1 class="text-3xl font-semibold">Change Order <%= @change_order.display_id %></h1>
+    <span>Created on <%= @change_order.created_at.to_fs(:long) %></span>
 
-  <%= button_to "Destroy this change order", @change_order, method: :delete %>
+    <div class="border rounded p-4 my-4">
+      <ul class="list-disc space-y-4 ml-4">
+        <li><%= render "shared/yes_no_pill", answer: @change_order.amount_changed %> Amount changed</li>
+        <li><%= render "shared/yes_no_pill", answer: @change_order.material_changed %> Material changed</li>
+        <li><%= render "shared/yes_no_pill", answer: @change_order.work_order_changed %> Work Order changed</li>
+      </ul>
+    </div>
+
+  </div>
+  <div class="mt-8">
+    <h2 class="text-lg font-semibold">Notifications</h2>
+      <% @change_order.notifications.each do |notification| %>
+        <%
+          seen = notification.seen? ? "#{time_ago_in_words(notification.seen_at)} ago" : "Not yet"
+          read = notification.read? ? "#{time_ago_in_words(notification.read_at)} ago" : "Not yet"
+         %>
+        <div class="border-b p-3">
+          <p><strong class="font-bold"><%= notification.recipient.email %></strong> was notified <%= time_ago_in_words(notification.created_at) %> ago.</p>
+          <p class="text-xs text-zinc-900">Seen: <%= seen %>, Read: <%= read %></p>
+        </div>
+      <% end %>
+  </div>
 </div>
