@@ -60,3 +60,5 @@ end
 
 
 gem "noticed", "~> 2.2"
+
+gem "devise", "~> 4.9"
