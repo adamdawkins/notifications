@@ -10,4 +10,7 @@ class User < ApplicationRecord
   scope :finance, -> { where(finance: true) }
   scope :pii, -> { where(pii: true) }
 
+  def notifications_count
+    @notifications_count ||= notifications.count
+  end
 end

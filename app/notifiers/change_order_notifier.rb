@@ -4,6 +4,8 @@
 
 class ChangeOrderNotifier < ApplicationNotifier
   required_param :message
+
+  deliver_by :turbo_stream, class: "DeliveryMethods::TurboStream"
  
   notification_methods do
     # I18n helpers

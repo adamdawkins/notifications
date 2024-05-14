@@ -23,6 +23,12 @@
         <%= link_to "Log in", new_user_session_path %>
       <% end %>
     </li>
+  </ul>
+    <% if user_signed_in? %>
+     <div>Streaming from: <pre>notifications_<%= current_user.id %></pre></div>
+      <%= turbo_stream_from "notifications_#{current_user.id}" %>
+      <%= render "navbar/notifications/bell", count: current_user.notifications_count, refresh: false %>
+    <% end %>
   </nav>
     <%= yield %>
   </body>
