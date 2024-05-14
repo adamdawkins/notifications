@@ -2,6 +2,7 @@ class NotificationsController < ApplicationController
   after_action :mark_notification_as_read, only: :read
   def index
     @notifications = current_user.notifications.newest_first.includes(event: :record)
+    @notifications.mark_as_seen
   end
 
   def read
