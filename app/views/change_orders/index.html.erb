@@ -1,14 +1,26 @@
 <p style="color: green"><%= notice %></p>
 
-<h1>Change orders</h1>
+  <h1 class="text-3xl font-semibold">Change orders</h1>
 
-<div id="change_orders">
-  <% @change_orders.each do |change_order| %>
-    <%= render change_order %>
-    <p>
-      <%= link_to "Show this change order", change_order %>
-    </p>
-  <% end %>
+  <%= link_to "New change order", new_change_order_path, class: "block font-semibold text-lg underline mt-6" %>
+
+<div class="grid h-full w-full justify-items-center overflow-hidden place-items-start justify-items-center p-6 py-8 sm:p-8 lg:p-12">
+  <div class="inline-block min-w-full align-middle sm:px-[--gutter]">
+    <table class="min-w-full text-left text-sm/6">
+      <thead class="text-zinc-500 text-zinc-400">
+        <tr class="">
+          <th class="th">Id</th>
+          <th class="th">Change order date</th>
+          <th class="th">Amount changed</th>
+          <th class="th">Material changed</th>
+          <th class="th">Order Changed</th>
+          <th class="th"></th>
+          <th class="th"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= render @change_orders %>
+      </tbody>
+    </table>
+  </div>
 </div>
-
-<%= link_to "New change order", new_change_order_path %>

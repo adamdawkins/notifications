@@ -1,17 +1,7 @@
-<div id="<%= dom_id change_order %>">
-  <p>
-    <strong>Amount changed:</strong>
-    <%= change_order.amount_changed %>
-  </p>
-
-  <p>
-    <strong>Material changed:</strong>
-    <%= change_order.material_changed %>
-  </p>
-
-  <p>
-    <strong>Work order changed:</strong>
-    <%= change_order.work_order_changed %>
-  </p>
-
-</div>
+<tr id="<%= dom_id change_order %>">
+  <td class="td"><%= link_to "##{change_order.id.to_s.rjust(4, '0')}", change_order, class: "text-black underline" %></td>
+  <td class="td"><%= link_to change_order.created_at.to_fs(:short), change_order, class: "underline" %></td>
+  <td class="td"><%= render "shared/yes_no_pill", answer: change_order.amount_changed %></td>
+  <td class="td"><%= render "shared/yes_no_pill", answer: change_order.material_changed %></td>
+  <td class="td"><%= render "shared/yes_no_pill", answer: change_order.work_order_changed %></td>
+</tr>

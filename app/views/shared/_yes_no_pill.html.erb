@@ -1,0 +1,22 @@
+<%
+classlist = %w[ -my-0.5
+                inline-flex
+                items-center
+                gap-x-1.5
+                rounded-md
+                px-1.5
+                py-0.5
+                text-sm/5
+                font-medium
+                sm:text-xs/5
+                forced-colors:outline
+              ]
+if answer
+  classlist << %w[bg-lime-400/20 text-lime-700 group-data-[hover]:bg-lime-400/30 bg-lime-400/10]
+else
+  classlist << %w[bg-rose-400/20 text-rose-700 group-data-[hover]:bg-rose-400/30 bg-rose-400/10]
+end
+%>
+<%= content_tag :span, class: classlist do %>
+  <%= answer ? "Yes" : "No" %>
+<% end %>

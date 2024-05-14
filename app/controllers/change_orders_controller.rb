@@ -3,7 +3,7 @@ class ChangeOrdersController < ApplicationController
 
   # GET /change_orders
   def index
-    @change_orders = ChangeOrder.all
+    @change_orders = ChangeOrder.all.order(created_at: :desc)
   end
 
   # GET /change_orders/1
