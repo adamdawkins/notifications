@@ -10,7 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_05_14_173509) do
+ActiveRecord::Schema[7.0].define(version: 2024_05_14_173923) do
+  create_table "change_orders", force: :cascade do |t|
+    t.boolean "amount_changed"
+    t.boolean "material_changed"
+    t.boolean "work_order_changed"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "comments", force: :cascade do |t|
     t.text "body"
     t.datetime "created_at", null: false

@@ -1,0 +1,32 @@
+<%= form_with(model: change_order) do |form| %>
+  <% if change_order.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(change_order.errors.count, "error") %> prohibited this change_order from being saved:</h2>
+
+      <ul>
+        <% change_order.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :amount_changed, style: "display: block" %>
+    <%= form.check_box :amount_changed %>
+  </div>
+
+  <div>
+    <%= form.label :material_changed, style: "display: block" %>
+    <%= form.check_box :material_changed %>
+  </div>
+
+  <div>
+    <%= form.label :work_order_changed, style: "display: block" %>
+    <%= form.check_box :work_order_changed %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
