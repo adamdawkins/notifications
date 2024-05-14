@@ -1,6 +1,6 @@
 <h1>Your Notifications</h1>
 <ul>
   <% @notifications.each do |notification| %>
-    <li><%= notification %></li>
+    <li><%= notification.message %> <span><%= link_to "View #{notification.event.record.class.name.underscore.humanize}", notification.event.record %><span> </li>
   <% end %>
 </ul>
