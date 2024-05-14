@@ -1,36 +1,57 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Notifications</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+<html class="h-full bg-gray-100">
+<head>
+<title>Notifications App</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<%= csrf_meta_tags %>
+<%= csp_meta_tag %>
+<%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
 
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
-  </head>
+<%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+<%= javascript_importmap_tags %>
+</head>
 
-  <body>
-  <nav>
-  <ul>
-    <li><strong><%= current_user&.email %></strong></li>
-    <li><%= link_to "Home", root_path %></li>
-    <li><%= link_to "Notifications", notifications_path %></li>
-    <li>
-      <% if user_signed_in? %>
-        <%= link_to "Log out", destroy_user_session_path, data: { turbo_method: :delete } %>
-      <% else %>
-        <%= link_to "Log in", new_user_session_path %>
-      <% end %>
-    </li>
-  </ul>
-    <% if user_signed_in? %>
-     <div>Streaming from: <pre>notifications_<%= current_user.id %></pre></div>
-      <%= turbo_stream_from "notifications_#{current_user.id}" %>
-      <%= render "navbar/notifications/bell", count: current_user.notifications_count, refresh: false %>
-    <% end %>
+<body class="h-full">
+<div class="min-h-full text-gray-900">
+  <nav class="bg-gray-800">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="flex h-16 items-center justify-between">
+        <div class="flex items-center">
+          <div class="block">
+            <div class="ml-10 flex items-baseline space-x-4">
+              <%= active_link_to "Change Orders", change_orders_path, class: "anchor" %>
+              <%= active_link_to "Notifications", notifications_path, class: "anchor" %>
+            </div>
+          </div>
+        </div>
+        <div class="block">
+          <div class="ml-4 flex items-center md:ml-6">
+            <% if user_signed_in? %>
+              <%= render "navbar/notifications/bell", count: current_user.notifications_count, refresh: false %>
+            <% end %>
+
+            <div class="relative ml-5">
+              <div class="relative flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                <% if user_signed_in? %>
+                  <%= turbo_stream_from "notifications_#{current_user.id}" %>
+                <span class="text-gray-300"><%= current_user.email %></span>
+                (<%= link_to "Log out", destroy_user_session_path, data: { turbo_method: :delete }, class:"block px-4 py-2 text-sm text-gray-400" %>)
+              <% else %>
+                <%= link_to "Log in", new_user_session_path %>
+              <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </nav>
-    <%= yield %>
-  </body>
+
+  <main>
+    <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
+      <%= yield %>
+    </div>
+  </main>
+</div>
+</body>
 </html>
