@@ -1,6 +1,8 @@
 <div class="flex flex-row border-b align-middle">
-  <div class="unread-indicator my-auto mr-5 ml-2"></div>
-  <%= link_to polymorphic_path(notification.event.record,  read_notification_id: notification.id), class:"flex items-center flex-auto py-2" do %>
+  <% unless notification.read? %>
+    <div class="unread-indicator my-auto mr-5 ml-2"></div>
+  <% end %>
+  <%= link_to read_notification_path(notification, url: polymorphic_path(notification.event.record)), data: { turbo_method: :patch }, class:"flex items-center flex-auto py-2" do %>
     <div class="flex flex-col flex-auto">
       <div class="flex">
         <p class="m-0 text-xs flex-auto">

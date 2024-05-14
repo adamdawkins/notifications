@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  resources :notifications, only: :index
+  resources :notifications, only: :index do 
+    patch :read, on: :member
+  end
   resources :change_orders
 
 
