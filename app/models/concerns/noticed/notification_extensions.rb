@@ -11,4 +11,13 @@ module Noticed::NotificationExtensions
       locals: { count: recipient.reload.notifications_count, refresh: true }
     )
   end
+
+  def broadcast_prepend_to_index_list
+    broadcast_prepend_to(
+      "notifications_index_list_#{recipient.id}",
+      target: "notifications",
+      partial: "notifications/notification",
+      locals: { notification: self }
+    )
+  end
 end

@@ -1,6 +1,6 @@
 <h1>Your Notifications</h1>
-<ul>
-  <% @notifications.each do |notification| %>
-    <li><%= notification.message %> <span><%= link_to "View #{notification.event.record.class.name.underscore.humanize}", notification.event.record %><span> </li>
-  <% end %>
+<%= turbo_stream_from "notifications_index_list_#{current_user.id}" %>
+
+<ul id="notifications">
+  <%= render collection: @notifications, partial: "notifications/notification" %>
 </ul>
