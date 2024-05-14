@@ -11,22 +11,29 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :amount_changed, style: "display: block" %>
-    <%= form.check_box :amount_changed %>
-  </div>
+  <div class="space-y-5">
+    <div>
+      <%= form.label :amount_changed do %>
+        <%= form.check_box :amount_changed, class: "mr-2" %> The total cost of the  project has changed
+      <% end %>
+    </div>
 
-  <div>
-    <%= form.label :material_changed, style: "display: block" %>
-    <%= form.check_box :material_changed %>
-  </div>
+    <div>
+      <%= form.label :material_changed do %>
+        <%= form.check_box :material_changed, class: "mr-2" %> The materials ordered for the project have changed.
+      <% end %>
+    </div>
 
-  <div>
-    <%= form.label :work_order_changed, style: "display: block" %>
-    <%= form.check_box :work_order_changed %>
-  </div>
 
-  <div>
-    <%= form.submit %>
+    <div>
+      <%= form.label :work_order_changed do %>
+        <%= form.check_box :work_order_changed, class: "mr-2" %> The scope of work for the project has changed.
+      <% end %>
+    </div>
+
+
+    <div>
+      <%= form.submit class: "button" %>
+    </div>
   </div>
 <% end %>
