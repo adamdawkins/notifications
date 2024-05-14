@@ -13,6 +13,7 @@
   <body>
   <nav>
   <ul>
+    <li><strong><%= current_user&.email %></strong></li>
     <li><%= link_to "Home", root_path %></li>
     <li><%= link_to "Notifications", notifications_path %></li>
     <li>
