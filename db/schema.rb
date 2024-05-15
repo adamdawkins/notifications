@@ -11,6 +11,9 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.0].define(version: 2024_05_14_173923) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "change_orders", force: :cascade do |t|
     t.boolean "amount_changed"
     t.boolean "material_changed"
@@ -19,17 +22,11 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_14_173923) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "comments", force: :cascade do |t|
-    t.text "body"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "noticed_events", force: :cascade do |t|
     t.string "type"
     t.string "record_type"
     t.bigint "record_id"
-    t.json "params"
+    t.jsonb "params"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "notifications_count"
