@@ -1,5 +1,5 @@
 <div class="flex flex-row border-b align-middle">
-  <div class="unread-indicator my-auto mr-5 ml-2 <%= notification.unread?? 'opacity-0' : '' %>"></div>
+  <div class="unread-indicator my-auto mr-5 ml-2 <%= notification.read? ? 'opacity-0' : '' %>"></div>
   <%= link_to read_notification_path(notification, url: polymorphic_path(notification.event.record)), data: { turbo_method: :patch }, class:"flex items-center flex-auto py-2" do %>
     <div class="flex flex-col flex-auto">
       <div class="flex">
